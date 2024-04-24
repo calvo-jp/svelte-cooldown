@@ -23,7 +23,13 @@ export interface CreateCooldownConfig {
 
 export interface CreateCooldownReturn {
   start: () => void;
+  /**
+   * Not yet implemented
+   */
   restart: () => void;
+  /**
+   * Not yet implemented
+   */
   pause: () => void;
   stop: () => void;
   readonly countdown: number;
