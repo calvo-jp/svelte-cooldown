@@ -1,13 +1,21 @@
 <script lang="ts">
-  import { Cooldown } from '$lib/index.js';
+  import { createCooldown } from '$lib/index.js';
+
+  let cooldown = createCooldown();
+
+  $inspect(cooldown.paused);
+  $inspect(cooldown.cooling);
 </script>
 
-<Cooldown>
-  {#snippet children(context)}
-    <div>{context.countdown}</div>
+<div>{cooldown.countdown}</div>
 
-    <button onclick={() => context.start()}>Start</button>
-    <button onclick={() => context.stop()}>Stop</button>
-    <button onclick={() => context.restart()}>Restart</button>
-  {/snippet}
-</Cooldown>
+<button onclick={() => cooldown.start()}>Start</button>
+<button onclick={() => cooldown.stop()}>Stop</button>
+<button onclick={() => cooldown.restart()}>Restart</button>
+<button onclick={() => cooldown.pause()}>
+  {#if cooldown.paused}
+    Resume
+  {:else}
+    Pause
+  {/if}
+</button>

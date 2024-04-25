@@ -25,13 +25,11 @@ export interface CreateCooldownConfig {
 export interface CreateCooldownReturn {
   start: () => void;
   restart: () => void;
-  /**
-   * Not yet implemented
-   */
   pause: () => void;
   stop: () => void;
   readonly countdown: number;
   readonly cooling: boolean;
+  readonly paused: boolean;
 }
 
 export function createCooldown(config?: CreateCooldownConfig): CreateCooldownReturn {
@@ -58,24 +56,38 @@ export function createCooldown(config?: CreateCooldownConfig): CreateCooldownRet
     };
   });
 
+  let paused = $state(false);
   let cooling = $state(false);
   let countdown = $state(min);
 
   function start() {
     if (cooling) return;
 
+    if (paused) {
+      paused = false;
+      cooling = true;
+      return;
+    }
+
     cooling = true;
     countdown = max - 1;
   }
 
   function stop() {
-    if (!cooling) return;
-
+    paused = false;
     cooling = false;
     countdown = min;
   }
 
-  function pause() {}
+  function pause() {
+    if (paused) {
+      paused = false;
+      cooling = true;
+    } else {
+      paused = true;
+      cooling = false;
+    }
+  }
 
   function restart() {
     stop();
@@ -85,7 +97,7 @@ export function createCooldown(config?: CreateCooldownConfig): CreateCooldownRet
   $effect(() => {
     let timer: NodeJS.Timeout;
 
-    if (cooling) {
+    if (cooling && !paused) {
       timer = setInterval(() => {
         countdown = round(clamp(countdown - 1, min, max));
 
@@ -116,6 +128,9 @@ export function createCooldown(config?: CreateCooldownConfig): CreateCooldownRet
     restart,
     pause,
     stop,
+    get paused() {
+      return paused;
+    },
     get cooling() {
       return cooling;
     },

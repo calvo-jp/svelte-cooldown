@@ -25,26 +25,15 @@ npm install svelte-cooldown
 
 <div>{cooldown.countdown}</div>
 
-<button
-  onclick={function () {
-    cooldown.start();
-  }}
->
-  Start
-</button>
-<button
-  onclick={function () {
-    cooldown.stop();
-  }}
->
-  Stop
-</button>
-<button
-  onclick={function () {
-    cooldown.restart();
-  }}
->
-  Restart
+<button onclick={cooldown.start}>Start</button>
+<button onclick={cooldown.stop}>Stop</button>
+<button onclick={cooldown.restart}>Restart</button>
+<button onclick={context.pause}>
+  {#if context.paused}
+    Resume
+  {:else}
+    Pause
+  {/if}
 </button>
 ```
 
@@ -67,26 +56,15 @@ or using the component
   {#snippet children(context)}
     <div>{context.countdown}</div>
 
-    <button
-      onclick={function () {
-        context.start();
-      }}
-    >
-      Start
-    </button>
-    <button
-      onclick={function () {
-        context.stop();
-      }}
-    >
-      Stop
-    </button>
-    <button
-      onclick={function () {
-        context.restart();
-      }}
-    >
-      Restart
+    <button onclick={context.start}>Start</button>
+    <button onclick={context.stop}>Stop</button>
+    <button onclick={context.restart}>Restart</button>
+    <button onclick={context.pause}>
+      {#if context.paused}
+        Resume
+      {:else}
+        Pause
+      {/if}
     </button>
   {/snippet}
 </Cooldown>
