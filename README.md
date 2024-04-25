@@ -48,6 +48,8 @@ npm install svelte-cooldown
 </button>
 ```
 
+or using the component
+
 ```svelte
 <script lang="ts">
   import { Cooldown } from 'svelte-cooldown';
