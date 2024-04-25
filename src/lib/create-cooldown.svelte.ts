@@ -23,12 +23,33 @@ export interface CreateCooldownConfig {
 }
 
 export interface CreateCooldownReturn {
+  /**
+   * Starts the cooldown
+   */
   start: () => void;
+  /**
+   * Restarts the cooldown
+   */
   restart: () => void;
+  /**
+   * Pauses/resumes the cooldown
+   */
   pause: () => void;
+  /**
+   * Stops the cooldown
+   */
   stop: () => void;
+  /**
+   * The current countdown value
+   */
   readonly countdown: number;
+  /**
+   * Whether the cooldown has started
+   */
   readonly cooling: boolean;
+  /**
+   * Whether the cooldown is paused
+   */
   readonly paused: boolean;
 }
 

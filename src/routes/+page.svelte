@@ -2,17 +2,14 @@
   import { createCooldown } from '$lib/index.js';
 
   let cooldown = createCooldown();
-
-  $inspect(cooldown.paused);
-  $inspect(cooldown.cooling);
 </script>
 
 <div>{cooldown.countdown}</div>
 
-<button onclick={() => cooldown.start()}>Start</button>
-<button onclick={() => cooldown.stop()}>Stop</button>
-<button onclick={() => cooldown.restart()}>Restart</button>
-<button onclick={() => cooldown.pause()}>
+<button onclick={cooldown.start}>Start</button>
+<button onclick={cooldown.stop}>Stop</button>
+<button onclick={cooldown.restart}>Restart</button>
+<button onclick={cooldown.pause}>
   {#if cooldown.paused}
     Resume
   {:else}
