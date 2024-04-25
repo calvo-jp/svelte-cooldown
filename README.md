@@ -39,6 +39,13 @@ npm install svelte-cooldown
 >
   Stop
 </button>
+<button
+  onclick={function () {
+    cooldown.restart();
+  }}
+>
+  Restart
+</button>
 ```
 
 ```svelte
@@ -71,6 +78,13 @@ npm install svelte-cooldown
       }}
     >
       Stop
+    </button>
+    <button
+      onclick={function () {
+        context.restart();
+      }}
+    >
+      Restart
     </button>
   {/snippet}
 </Cooldown>

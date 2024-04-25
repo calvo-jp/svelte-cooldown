@@ -8,5 +8,6 @@
 
     <button onclick={() => context.start()}>Start</button>
     <button onclick={() => context.stop()}>Stop</button>
+    <button onclick={() => context.restart()}>Restart</button>
   {/snippet}
 </Cooldown>

@@ -1,3 +1,4 @@
+import { tick } from 'svelte';
 import { clamp } from './clamp.js';
 import { round } from './round.js';
 
@@ -23,9 +24,6 @@ export interface CreateCooldownConfig {
 
 export interface CreateCooldownReturn {
   start: () => void;
-  /**
-   * Not yet implemented
-   */
   restart: () => void;
   /**
    * Not yet implemented
@@ -79,7 +77,10 @@ export function createCooldown(config?: CreateCooldownConfig): CreateCooldownRet
 
   function pause() {}
 
-  function restart() {}
+  function restart() {
+    stop();
+    tick().then(start);
+  }
 
   $effect(() => {
     let timer: NodeJS.Timeout;
