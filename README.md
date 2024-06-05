@@ -44,7 +44,7 @@ or using the component
   import { Cooldown } from 'svelte-cooldown';
 </script>
 
-<Cooldown
+<Cooldown.Root
   min={0}
   max={10}
   duration={10000}
@@ -53,19 +53,18 @@ or using the component
     /**/
   }}
 >
-  {#snippet children(context)}
-    <div>{context.countdown}</div>
-
-    <button onclick={context.start}>Start</button>
-    <button onclick={context.stop}>Stop</button>
-    <button onclick={context.restart}>Restart</button>
-    <button onclick={context.pause}>
-      {#if context.paused}
+  <Cooldown.Countdown />
+  <Cooldown.Start>Start</Cooldown.Start>
+  <Cooldown.Stop>Stop</Cooldown.Stop>
+  <Cooldown.Pause>
+    {#snippet children(paused)}
+      {#if paused}
         Resume
       {:else}
         Pause
       {/if}
-    </button>
-  {/snippet}
-</Cooldown>
+    {/snippet}
+  </Cooldown.Pause>
+  <Cooldown.Restart>Restart</Cooldown.Restart>
+</Cooldown.Root>
 ```
