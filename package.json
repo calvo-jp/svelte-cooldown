@@ -9,7 +9,8 @@
     "Svelte",
     "SvelteKit",
     "cooldown",
-    "timer"
+    "timer",
+    "countdown"
   ],
   "exports": {
     ".": {
