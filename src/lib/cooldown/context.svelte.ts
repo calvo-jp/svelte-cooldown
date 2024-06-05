@@ -1,4 +1,7 @@
-import { createCooldown, type CreateCooldownReturn } from '$lib/create-cooldown.svelte.js';
+import {
+  createCooldown,
+  type CreateCooldownReturn,
+} from '$lib/create-cooldown.svelte.js';
 import { getContext, setContext } from 'svelte';
 
 export function createCooldownContext() {

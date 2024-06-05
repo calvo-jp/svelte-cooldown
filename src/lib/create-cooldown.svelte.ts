@@ -53,7 +53,9 @@ export interface CreateCooldownReturn {
   readonly paused: boolean;
 }
 
-export function createCooldown(config?: CreateCooldownConfig): CreateCooldownReturn {
+export function createCooldown(
+  config?: CreateCooldownConfig,
+): CreateCooldownReturn {
   const {
     /**/
     min,
