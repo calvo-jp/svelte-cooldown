@@ -1,5 +1,4 @@
-import { expect, test } from 'vitest';
-import { clamp } from './clamp.js';
+import { clamp } from '../lib/clamp.js';
 
 test('clamp', () => {
   expect(clamp(0, 1, 2)).toBe(1);

@@ -10,17 +10,18 @@
     console.log('Cooled down!');
   }}
 >
-  <Cooldown.Countdown />
-  <Cooldown.Start>Start</Cooldown.Start>
-  <Cooldown.Stop>Stop</Cooldown.Stop>
-  <Cooldown.Pause>
-    {#snippet children(paused)}
-      {#if paused}
+  {#snippet children(context)}
+    <Cooldown.Countdown />
+    <Cooldown.Start>
+      {#if context.paused}
         Resume
-      {:else}
+      {:else if context.cooling}
         Pause
+      {:else}
+        Start
       {/if}
-    {/snippet}
-  </Cooldown.Pause>
-  <Cooldown.Restart>Restart</Cooldown.Restart>
+    </Cooldown.Start>
+    <Cooldown.Stop>Stop</Cooldown.Stop>
+    <Cooldown.Restart>Restart</Cooldown.Restart>
+  {/snippet}
 </Cooldown.Root>

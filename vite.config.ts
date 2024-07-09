@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [sveltekit()],
   test: {
     watch: false,
-    include: ['src/**/*.{test,spec}.{js,ts}'],
+    include: ['src/tests/**/*.{test,spec}.{js,ts}'],
+    globals: true,
   },
   server: {
     port: 3000,
