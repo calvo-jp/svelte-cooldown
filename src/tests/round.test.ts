@@ -1,5 +1,4 @@
-import { expect, test } from 'vitest';
-import { round } from './round.js';
+import { round } from '../lib/round.js';
 
 test('round', () => {
   expect(round(1.234)).toBe(1.23);

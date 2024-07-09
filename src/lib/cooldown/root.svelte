@@ -7,6 +7,7 @@
     type CreateCooldownConfig,
     type CreateCooldownReturn,
   } from '../create-cooldown.svelte.js';
+  import { cx } from '../cx.js';
   import { setCooldownContext } from './context.svelte.js';
 
   interface Overrides extends CreateCooldownConfig {
@@ -16,13 +17,13 @@
   interface Props extends Assign<SvelteHTMLElements['div'], Overrides> {}
 
   let {
-    /**/
     min,
     max,
     autoplay,
     duration,
     oncooldown,
     children,
+    class: className,
     ...props
   }: Props = $props();
 
@@ -37,6 +38,14 @@
   setCooldownContext(context);
 </script>
 
-<div {...props}>
+<div
+  class={cx('svelte-cooldown', className)}
+  data-state={context.paused
+    ? 'paused'
+    : context.cooling
+      ? 'cooling'
+      : undefined}
+  {...props}
+>
   {@render children(context)}
 </div>

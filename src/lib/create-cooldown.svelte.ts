@@ -19,22 +19,22 @@ export interface CreateCooldownConfig {
    * @default false
    */
   autoplay?: boolean;
+  /**
+   * @default true
+   */
+  allowPause?: boolean;
   oncooldown?: () => void;
 }
 
 export interface CreateCooldownReturn {
   /**
-   * Starts the cooldown
+   * Starts or pauses the cooldown
    */
   start: () => void;
   /**
    * Restarts the cooldown
    */
   restart: () => void;
-  /**
-   * Pauses/resumes the cooldown
-   */
-  pause: () => void;
   /**
    * Stops the cooldown
    */
@@ -63,11 +63,13 @@ export function createCooldown(
     autoplay,
     duration,
     oncooldown,
+    allowPause,
   } = $derived.by(() => {
     const min = config?.min ?? 0;
     const max = config?.max ?? 10;
     const duration = config?.duration ?? 10000;
     const autoplay = config?.autoplay ?? false;
+    const allowPause = config?.allowPause ?? true;
     const oncooldown = config?.oncooldown ?? function () {};
 
     return {
@@ -76,6 +78,7 @@ export function createCooldown(
       autoplay,
       duration,
       oncooldown,
+      allowPause,
     };
   });
 
@@ -84,11 +87,19 @@ export function createCooldown(
   let countdown = $state(min);
 
   function start() {
-    if (cooling) return;
-
+    /* is it paused? */
     if (paused) {
       paused = false;
-      cooling = true;
+      return;
+    }
+
+    /* is it still cooling down? */
+    if (cooling) {
+      /* do we allow pause? */
+      if (allowPause) {
+        paused = true;
+      }
+
       return;
     }
 
@@ -100,16 +111,6 @@ export function createCooldown(
     paused = false;
     cooling = false;
     countdown = min;
-  }
-
-  function pause() {
-    if (paused) {
-      paused = false;
-      cooling = true;
-    } else {
-      paused = true;
-      cooling = false;
-    }
   }
 
   function restart() {
@@ -149,7 +150,6 @@ export function createCooldown(
   return {
     start,
     restart,
-    pause,
     stop,
     get paused() {
       return paused;

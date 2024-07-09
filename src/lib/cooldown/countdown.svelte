@@ -2,6 +2,7 @@
   import type { Assign } from '$lib/types.js';
   import type { Snippet } from 'svelte';
   import type { SvelteHTMLElements } from 'svelte/elements';
+  import { cx } from '../cx.js';
   import { getCooldownContext } from './context.svelte.js';
 
   interface Overrides {
@@ -10,11 +11,19 @@
 
   interface Props extends Assign<SvelteHTMLElements['span'], Overrides> {}
 
-  let { children, ...props }: Props = $props();
+  let { children, class: className, ...props }: Props = $props();
   let context = getCooldownContext();
 </script>
 
-<span {...props}>
+<span
+  class={cx('svelte-cooldown__countdown', className)}
+  data-state={context.paused
+    ? 'paused'
+    : context.cooling
+      ? 'cooling'
+      : undefined}
+  {...props}
+>
   {#if children}
     {@render children(context.countdown)}
   {:else}

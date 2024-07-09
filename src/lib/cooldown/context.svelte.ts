@@ -18,7 +18,6 @@ export function createCooldownContext() {
       return cooldown.paused;
     },
     start: cooldown.start,
-    pause: cooldown.pause,
     restart: cooldown.restart,
     stop: cooldown.stop,
   };
