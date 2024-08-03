@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
-
 type GenericObject = Record<string, any>;
 
 export type Pretty<T extends GenericObject> = {} & {

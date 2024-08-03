@@ -1,4 +1,4 @@
-import { round } from '../lib/round.js';
+import { round } from './round.js';
 
 test('round', () => {
   expect(round(1.234)).toBe(1.23);

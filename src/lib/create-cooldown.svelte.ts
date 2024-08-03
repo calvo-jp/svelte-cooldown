@@ -1,3 +1,4 @@
+import { browser } from '$app/environment';
 import { tick } from 'svelte';
 import { clamp } from './clamp.js';
 import { round } from './round.js';
@@ -141,11 +142,9 @@ export function createCooldown(
     };
   });
 
-  $effect(() => {
-    if (autoplay) {
-      start();
-    }
-  });
+  if (browser && autoplay) {
+    start();
+  }
 
   return {
     start,

@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [sveltekit()],
   test: {
     watch: false,
-    include: ['src/tests/**/*.{test,spec}.{js,ts}'],
+    include: ['src/**/*.{test,spec}.{js,ts}'],
     globals: true,
   },
   server: {
