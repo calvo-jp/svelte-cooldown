@@ -1,4 +1,3 @@
-import { browser } from '$app/environment';
 import { tick } from 'svelte';
 import { clamp } from './clamp.js';
 import { round } from './round.js';
@@ -86,6 +85,7 @@ export function createCooldown(
   let paused = $state(false);
   let cooling = $state(false);
   let countdown = $state(min);
+  let autoPlayed = $state(false);
 
   function start() {
     /* is it paused? */
@@ -142,9 +142,13 @@ export function createCooldown(
     };
   });
 
-  if (browser && autoplay) {
+  $effect(() => {
+    if (cooling) return;
+    if (autoPlayed) return;
+    if (!autoplay) return;
     start();
-  }
+    autoPlayed = true;
+  });
 
   return {
     start,

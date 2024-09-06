@@ -3,6 +3,7 @@
 </script>
 
 <Cooldown.Root
+  autoplay
   min={0}
   max={10}
   duration={10000}
